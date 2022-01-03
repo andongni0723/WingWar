@@ -54,7 +54,6 @@ public class BossHealth : Health
     {
         if (other.CompareTag("bullet"))
         {
-            Destroy(other.gameObject);
             Hurt(20);
         }
     }

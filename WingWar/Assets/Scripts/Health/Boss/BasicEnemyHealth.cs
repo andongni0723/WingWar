@@ -32,9 +32,9 @@ public class BasicEnemyHealth : Health
 
     public virtual void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("bullet"))
+        if (other.gameObject.CompareTag("bullet"))
         {
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
             UI_OBJ.SetActive(true);
             Hurt(20);
         }
