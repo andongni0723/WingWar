@@ -8,12 +8,17 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    AudioSource asource;
     public float score = 0;
     public bool isBossDead = true;
     public bool isPlayerDead;
 
     [Header("UI GameObject")]
     public GameObject gameOver_OBJ;
+
+    public GameObject leftJoystick;
+    public GameObject rightJoystick;
+
     public Text score_T;
 
     [Header("Boss UI")]
@@ -28,12 +33,27 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         instance = this;
         if (instance == null)
-            Destroy(this);
+            Destroy(this);      
     }
 
     void Start()
     {
+        asource = GetComponent<AudioSource>();
 
+        // BGM volume change with OpenScene's value
+        asource.volume = PlayerPrefs.GetFloat("bgmVolume") * 0.2f;
+
+        // Joystick location mode change with OpenScene's value
+        if (OpenManager.instance.JoystickToggleIsOn_IntToBool()) // True: Left  False: Right
+        {
+            leftJoystick.SetActive(true);
+            rightJoystick.SetActive(false);
+        }
+        else
+        {
+            leftJoystick.SetActive(false);
+            rightJoystick.SetActive(true);
+        }
     }
 
     void Update()
@@ -43,12 +63,6 @@ public class GameManager : MonoBehaviour
 
         // var show on UI
         score_T.text = score.ToString("0");
-
-        //if (isBossDead)
-        //    bossUI_OBJ.SetActive(true);
-        //else
-        //    bossUI_OBJ.SetActive(false);
-
     }
 
     public void GetPoint(float point)

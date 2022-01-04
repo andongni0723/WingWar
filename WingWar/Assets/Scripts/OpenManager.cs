@@ -6,10 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class OpenManager : MonoBehaviour
 {
+    public static OpenManager instance;
+
+    public float volume;
+
+    [Header("UI Component")]
     public Slider bgmVolume_S;
     public Text volume_T;
     public Toggle joystickModeLeftIsOn_T;
-    public float volume;
+    
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
