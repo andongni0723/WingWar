@@ -34,7 +34,6 @@ public class BasicEnemyHealth : Health
     {
         if (other.gameObject.CompareTag("bullet"))
         {
-            //Destroy(other.gameObject);
             UI_OBJ.SetActive(true);
             Hurt(20);
         }

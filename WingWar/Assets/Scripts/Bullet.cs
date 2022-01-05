@@ -32,7 +32,6 @@ public class Bullet : MonoBehaviour
             case "Enemy":
                 if (other.gameObject.CompareTag("Player"))
                 {
-                    Debug.Log(other.gameObject + "enter all");
                     Destroy(gameObject);
                 }
                 return;
@@ -40,7 +39,6 @@ public class Bullet : MonoBehaviour
             case "Player":
                 if (other.gameObject.CompareTag("enemy") || other.CompareTag("enemyWall"))
                 {
-                    Debug.Log(other.gameObject + "enter all");
                     Destroy(gameObject);
                 }
                 return;
