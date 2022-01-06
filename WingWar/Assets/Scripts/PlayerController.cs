@@ -31,24 +31,37 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Joystick move on mobile and PC
-        Vector3 direction = Vector3.up * variableJoystick.Vertical + Vector3.forward * variableJoystick.Horizontal;
-        rb.velocity = direction * speed * Time.fixedDeltaTime;
+        Move();
+    }
 
-        // WASD move on PC
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
 
-        Vector3 directionPC = Vector3.up * moveY + Vector3.forward * moveX;
-        rb.velocity = directionPC * speed * 0.4f * Time.fixedDeltaTime;
+    public void Move()
+    {
+        switch (PlayerPrefs.GetString("platform"))
+        {
+            case "mobile":
+
+                // Joystick
+                Vector3 direction = Vector3.up * variableJoystick.Vertical + Vector3.forward * variableJoystick.Horizontal;
+                rb.velocity = direction * speed * Time.fixedDeltaTime;
+                break;
+
+            case "PC":
+
+                // WASD
+                float moveX = Input.GetAxisRaw("Horizontal");
+                float moveY = Input.GetAxisRaw("Vertical");
+        
+                Vector3 directionPC = Vector3.up * moveY + Vector3.forward * moveX;
+                rb.velocity = directionPC * speed * 0.4f * Time.fixedDeltaTime;
+                break;
+        }
     }
 
     public void Shoot()
     {
         Instantiate(bullet, shootPoint.transform.position, Quaternion.Euler(0, 0, 180));
     }
-
-
 
     private void OnTriggerEnter(Collider other)
     {
